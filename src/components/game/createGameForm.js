@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom'
 
 export const GameForm = () => {
     const history = useHistory()
-    const { createGame, getGameTypes, gameTypes } = useContext(GameContext)
+    const {createGame, getGameTypes, gameTypes, getGames} = useContext(GameContext)
 
     /*
         Since the input fields are bound to the values of
@@ -13,11 +13,14 @@ export const GameForm = () => {
         provide some default values.
     */
     const [currentGame, setCurrentGame] = useState({
-        skillLevel: 1,
+        skillLevel: 0,
+        description: "",
         numberOfPlayers: 0,
-        title: "",
+        name: "",
         maker: "",
-        gameTypeId: 0
+        gameTypeId: 0,
+        // gamer: localStorage.getItem( "lu_token" )
+
     })
 
     /*
@@ -26,6 +29,9 @@ export const GameForm = () => {
     */
     useEffect(() => {
         getGameTypes()
+    }, [])
+    useEffect(() => {
+        getGames()
     }, [])
 
     /*
@@ -67,6 +73,12 @@ export const GameForm = () => {
         newGameState.gameTypeId = event.target.value
         setCurrentGame(newGameState)
     }
+    const changeGameDescriptionState = (event) => {
+        const newGameState = { ...currentGame }
+        newGameState.gameTypeId = event.target.value
+        setCurrentGame(newGameState)
+    }
+
     /* REFACTOR CHALLENGE END */
 
     return (
@@ -102,6 +114,15 @@ export const GameForm = () => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
+                    <label htmlFor="description">Description: </label>
+                    <input type="text" name="description" required autoFocus className="form-control"
+                        defaltvalue={currentGame.description}
+                        onChange={changeGameDescriptionState}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
                     <label htmlFor="numberOfPlayers">Number of players: </label>
                     <input type="text" name="numberOfPlayers" required autoFocus className="form-control"
                         value={currentGame.numberOfPlayers}
@@ -114,11 +135,11 @@ export const GameForm = () => {
                     <label htmlFor="gameType">Game type: </label>
                     <select value={currentGame.gameTypeId} onChange={changeGameTypeState}>
                         <option> choose a game type </option>
-                        {/* {
-                            gameTypes.map(gameType => {
-                                <option key={gameType.id} value={gameType.gameTypeId}> {gameType.label}</option>
-                            })
-                        } */}
+                        {
+                            gameTypes.map(gameType => 
+                                <option key={gameType.id} value={gameType.id}>{gameType.label}</option>
+                            )
+                        }
                     </select>
                 </div>
             </fieldset>
@@ -135,7 +156,8 @@ export const GameForm = () => {
                         name: currentGame.name,
                         numberOfPlayers: parseInt(currentGame.numberOfPlayers),
                         skillLevel: parseInt(currentGame.skillLevel),
-                        gameTypeId: parseInt(currentGame.gameTypeId)
+                        gameTypeId: parseInt(currentGame.gameTypeId),
+                        description: currentGame.description
                     }
 
                     // Send POST request to your API

@@ -25,16 +25,16 @@ export const GameProvider = (props) => {
                 "content-type": "application/json"
             },
             body: JSON.stringify(game)
-         })
+        })
             .then(getGames)
     }
-    
+
     const getGameTypes = () => {
         return fetch("http://localhost:8000/gametypes", { 
             method: "GET",
             headers: {
             "Authorization": `Token ${localStorage.getItem("lu_token")}`
-          }  
+        }  
         })
             .then(res => res.json())
             .then(setGameTypes)
