@@ -2,6 +2,9 @@ import React from "react"
 import { Route } from "react-router-dom"
 import { GameList } from "./game/GameList.js"
 import { GameProvider } from "./game/GameProvider.js"
+import { GameForm } from "./game/createGameForm.js"
+import { EventList } from "./game/EventList.js"
+import { EventProvider } from "./game/EventProvider.js"
 
 export const ApplicationViews = () => {
     return <>
