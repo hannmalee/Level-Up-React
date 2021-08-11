@@ -14,12 +14,11 @@ export const GameForm = () => {
     */
     const [currentGame, setCurrentGame] = useState({
         skillLevel: 0,
-        description: "",
+        description: "game",
         numberOfPlayers: 0,
         name: "",
         maker: "",
         gameTypeId: 0,
-        // gamer: localStorage.getItem( "lu_token" )
 
     })
 
@@ -29,9 +28,6 @@ export const GameForm = () => {
     */
     useEffect(() => {
         getGameTypes()
-    }, [])
-    useEffect(() => {
-        getGames()
     }, [])
 
     /*
@@ -112,15 +108,15 @@ export const GameForm = () => {
                     />
                 </div>
             </fieldset>
-            <fieldset>
+            {/* <fieldset>
                 <div className="form-group">
                     <label htmlFor="description">Description: </label>
                     <input type="text" name="description" required autoFocus className="form-control"
-                        defaltvalue={currentGame.description}
+                        defaultValue={currentGame.description}
                         onChange={changeGameDescriptionState}
                     />
                 </div>
-            </fieldset>
+            </fieldset> */}
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="numberOfPlayers">Number of players: </label>
@@ -157,7 +153,9 @@ export const GameForm = () => {
                         numberOfPlayers: parseInt(currentGame.numberOfPlayers),
                         skillLevel: parseInt(currentGame.skillLevel),
                         gameTypeId: parseInt(currentGame.gameTypeId),
-                        description: currentGame.description
+                        description: currentGame.description,
+
+
                     }
 
                     // Send POST request to your API
