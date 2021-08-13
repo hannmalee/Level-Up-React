@@ -11,6 +11,12 @@ export const EventForm = () => {
     const { getGames, games } = useContext(GameContext)
     const [currentEvent, setCurrentEvent] = useState({
         // input fields here
+        date: "", 
+        time: "",
+        description: "" ,
+        title: "",
+        gameId: 0,
+        host: 0, 
     })
 
     useEffect(() => {
@@ -22,7 +28,7 @@ export const EventForm = () => {
         // ...
         const newEventState = {
             ...currentEvent }
-            newEventState.name = event.target.value
+            newEventState[event.target.name] = event.target.value
             setCurrentEvent(newEventState)
         }
     
@@ -39,7 +45,7 @@ export const EventForm = () => {
                 <div className="form-group">
                     <label htmlFor="gameId">Game: </label>
                     <select name="gameId" className="form-control"
-                        value={ currentEvent.gameId }
+                        value={ currentEvent.game }
                         onChange={ changeEventState }>
                         <option value="0">Select a game...</option>
                         {
@@ -57,7 +63,7 @@ export const EventForm = () => {
                 <div className="form-group">
                     <label>Title</label>
                     <input type="text" name="title" required autoFocus className="form-control"
-                        value={currentEvent.title}
+                        defaultValue={currentEvent.title}
                         onChange={changeEventState}
                     />
                 </div>
@@ -66,7 +72,7 @@ export const EventForm = () => {
                 <div className="form-group">
                     <label>Date</label>
                     <input type="date" name="date" required autoFocus className="form-control"
-                        value={currentEvent.date}
+                        defaultValue={currentEvent.date}
                         onChange={changeEventState}
                     />
                 </div>
@@ -75,7 +81,7 @@ export const EventForm = () => {
                 <div className="form-group">
                     <label>Time</label>
                     <input type="time" name="time" required autoFocus className="form-control"
-                        value={currentEvent.time}
+                        dafaultvalue={currentEvent.time}
                         onChange={changeEventState}
                     />
                 </div>
@@ -84,7 +90,7 @@ export const EventForm = () => {
                 <div className="form-group">
                     <label>Description</label>
                     <input type="text" name="description" required autoFocus className="form-control"
-                        value={currentEvent.description}
+                        defaultValue={currentEvent.description}
                         onChange={changeEventState}
                     />
                 </div>
